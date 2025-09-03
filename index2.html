@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>API Endpoint</title>
+  <script>
+    // Función para devolver JSON en lugar de HTML
+    async function serveJSON() {
+      try {
+        const res = await fetch("miniBase.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("No se pudo leer miniBase.json");
+        const data = await res.json();
+        
+        // Reemplazar todo el contenido con JSON puro
+        document.open();
+        document.write(JSON.stringify(data, null, 2));
+        document.close();
+        
+        // Forzar tipo de contenido (aunque GitHub Pages no permite cambiar cabeceras)
+        document.contentType = 'application/json';
+      } catch (err) {
+        document.open();
+        document.write(JSON.stringify({ error: err.message }, null, 2));
+        document.close();
+      }
+    }
+    serveJSON();
+  </script>
+</head>
+<body>
+  <!-- El cuerpo se reemplazará con el JSON -->
+</body>
+</html>

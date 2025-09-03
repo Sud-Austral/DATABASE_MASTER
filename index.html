@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>API Demo en GitHub Pages</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: monospace; background: #111; color: #0f0; padding: 20px; }
+    pre { white-space: pre-wrap; word-wrap: break-word; }
+    a { color: #0ff; }
+  </style>
+</head>
+<body>
+  <pre id="out">Cargando...</pre>
+
+  <script>
+    async function loadJSON() {
+      try {
+        const res = await fetch("miniBase.json", { cache: "no-store" });
+        if (!res.ok) throw new Error("No se pudo leer miniBase.json");
+        const data = await res.json();
+        document.getElementById("out").textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        document.getElementById("out").textContent = JSON.stringify({ error: err.message }, null, 2);
+      }
+    }
+
+    loadJSON();
+  </script>
+</body>
+</html>
